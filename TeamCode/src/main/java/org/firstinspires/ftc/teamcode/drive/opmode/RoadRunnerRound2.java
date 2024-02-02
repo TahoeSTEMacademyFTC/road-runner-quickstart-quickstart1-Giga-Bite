@@ -33,12 +33,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
@@ -56,10 +52,10 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="RoadRunnerRound1", group="Linear OpMode")
+@Autonomous(name="RoadRunnerRound2", group="Linear OpMode")
 
 //@Disabled
-public class RoadRunnerRound1 extends LinearOpMode {
+public class RoadRunnerRound2 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
@@ -70,29 +66,7 @@ public class RoadRunnerRound1 extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         Trajectory traj1 = drive.trajectoryBuilder(startPose)
-                .splineToConstantHeading(new Vector2d(40, 40), Math.toRadians(0))
-                .build();
-
-        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
-                .lineToSplineHeading(new Pose2d(0,0, Math.toRadians(-90)))
-                .splineTo(new Vector2d(-40, -40), Math.toRadians(180))
-                .build();
-
-        Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
-                .lineToSplineHeading(new Pose2d(-60,-8, Math.toRadians(0)))
-                .build();
-
-        // strafeRight(10) cannot be included in traj3 as it throws a PathContinuityException
-        Trajectory traj4 = drive.trajectoryBuilder(traj3.end())
-                .strafeRight(5)
-                .build();
-
-        Trajectory traj5 = drive.trajectoryBuilder(traj4.end())
-                .strafeLeft(10)
-                .build();
-
-        Trajectory traj6 = drive.trajectoryBuilder(traj5.end())
-                .splineToLinearHeading(new Pose2d(35, -35, Math.toRadians(270)), 0)
+                .splineToConstantHeading(new Vector2d(60, 8), Math.toRadians(0))
                 .build();
 
         waitForStart();
@@ -101,12 +75,6 @@ public class RoadRunnerRound1 extends LinearOpMode {
             return;
 
         drive.followTrajectory(traj1);
-        drive.followTrajectory(traj2);
-        drive.followTrajectory(traj3);
-       // drive.followTrajectory(traj4);
-      //  drive.turn(Math.toRadians(90));
-       // drive.followTrajectory(traj5);
-      //  drive.followTrajectory(traj6);
 
         Pose2d poseEstimate = drive.getPoseEstimate();
         telemetry.addData("x", poseEstimate.getX());
