@@ -81,7 +81,7 @@ public class DavidBlueRightAuto extends LinearOpMode {
                 .build();
 
         Trajectory traj4 = drive.trajectoryBuilder(traj3.end())
-                .splineTo(new Vector2d(-55,-55),Math.toRadians(180))
+                .splineTo(new Vector2d(55,-55),Math.toRadians(180))
                 .build();
 
         waitForStart();
